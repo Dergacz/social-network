@@ -8,14 +8,15 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./component/News/News";
 import {Music} from "./component/Music/Music";
 import {Settings} from "./component/Settings/Settings";
-import {addMessage, changeNewMessageText, changeNewText, RootStateType} from "./Redux/state";
-import {addPost} from "./Redux/state";
+import {StoreType} from "./Redux/state";
+
 
 export type AppStateType = {
-  state: RootStateType
+  store: StoreType
 }
 
 function App(props: AppStateType) {
+    const state = props.store.getState();
 
   return (
       <BrowserRouter>
@@ -24,17 +25,17 @@ function App(props: AppStateType) {
           <NavBar/>
           <div className="app_wrapper_content">
             <Route path="/profile"
-                   render={() => <Profile state={props.state}
-                                          addPostCallback={addPost}
-                                          message={props.state.profilePage.newPostMessage}
-                                          changeNewTextCallBach={changeNewText}/>}
+                   render={() => <Profile state={state}
+                                          addPostCallback={props.store.addPost.bind(props.store)}
+                                          message={state.profilePage.newPostMessage}
+                                          changeNewTextCallBach={props.store.changeNewText.bind(props.store)}/>}
 
             />
             <Route path="/dialogs"
-                   render={() => <Dialogs state={props.state}
-                                          addMessageCallBack={addMessage}
-                                          message={props.state.dialogsPage.newDialogsMessage}
-                                          changeNewMessageCallBack={changeNewMessageText}/>}
+                   render={() => <Dialogs state={state}
+                                          addMessageCallBack={props.store.addMessage.bind(props.store)}
+                                          message={state.dialogsPage.newDialogsMessage}
+                                          changeNewMessageCallBack={props.store.changeNewMessageText.bind(props.store)}/>}
             />
             <Route path="/news" render={() => <News/>}/>
             <Route path="/music" render={() => <Music/>}/>
