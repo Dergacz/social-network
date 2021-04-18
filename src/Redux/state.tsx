@@ -1,7 +1,8 @@
-const ADD_POST = "ADD-POST";
-const CHANGE_NEW_TEXT = "CHANGE-NEW-TEXT";
-const ADD_MESSAGE = "ADD-MESSAGE";
-const CHANGE_NEW_MESSAGE_TEXT = "CHANGE-NEW-MESSAGE-TEXT";
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
+import {sidebarReducer} from "./sidebarReducer";
+
+
 
 export type PostType = {
     id: number
@@ -38,22 +39,22 @@ export type RootStateType = {
 }
 
 
-type AddPostDispatchType = {
+export type AddPostDispatchType = {
     type: "ADD-POST"
     postText: string
 }
 
-type ChangeNewTextDispatchType = {
+export type ChangeNewTextDispatchType = {
     type: "CHANGE-NEW-TEXT"
     newText: string
 }
 
-type AddMessageDispatchType = {
+export type AddMessageDispatchType = {
     type: "ADD-MESSAGE"
     messageText: string
 }
 
-type ChangeNewMessageTextDispatchType = {
+export type ChangeNewMessageTextDispatchType = {
     type: "CHANGE-NEW-MESSAGE-TEXT"
     newMessage: string
 }
@@ -139,62 +140,43 @@ export const store: StoreType = {
     },
 
     dispatch(action){
-        if (action.type === ADD_POST){
-            const newPost: PostType = {
-                id: new Date().getTime(),
-                message: this._state.profilePage.newPostMessage,
-                likes: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostMessage = ""
-            this._renderThree()
-        }
-        else if (action.type === CHANGE_NEW_TEXT){
-            this._state.profilePage.newPostMessage = action.newText;
-            this._renderThree();
-        }
-        else if (action.type === ADD_MESSAGE){
-            const newMessage: MessagesType = {
-                id: new Date().getTime(),
-                message: this._state.dialogsPage.newDialogsMessage,
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newDialogsMessage = ""
-            this._renderThree()
-        }
-        else if (action.type === CHANGE_NEW_MESSAGE_TEXT){
-            this._state.dialogsPage.newDialogsMessage = action.newMessage;
-            this._renderThree();
-        }
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+
+        this._renderThree();
+
+        // if (action.type === ADD_POST){
+        //     const newPost: PostType = {
+        //         id: new Date().getTime(),
+        //         message: this._state.profilePage.newPostMessage,
+        //         likes: 0
+        //     }
+        //     this._state.profilePage.posts.push(newPost)
+        //     this._state.profilePage.newPostMessage = ""
+        //     this._renderThree()
+        // }
+        // else if (action.type === CHANGE_NEW_TEXT){
+        //     this._state.profilePage.newPostMessage = action.newText;
+        //     this._renderThree();
+        // }
+        // else if (action.type === ADD_MESSAGE){
+        //     const newMessage: MessagesType = {
+        //         id: new Date().getTime(),
+        //         message: this._state.dialogsPage.newDialogsMessage,
+        //     }
+        //     this._state.dialogsPage.messages.push(newMessage)
+        //     this._state.dialogsPage.newDialogsMessage = ""
+        //     this._renderThree()
+        // }
+        // else if (action.type === CHANGE_NEW_MESSAGE_TEXT){
+        //     this._state.dialogsPage.newDialogsMessage = action.newMessage;
+        //     this._renderThree();
+        // }
     }
 
 }
 
 
-export const addPostActionCreator = (postText: string): AddPostDispatchType => {
-    return {
-        type: ADD_POST,
-        postText: postText
-    }
-}
 
-export const newPostActionCreator = (newText: string): ChangeNewTextDispatchType => {
-    return {
-        type: CHANGE_NEW_TEXT,
-        newText: newText
-    }
-}
-
-export const addMessageActionCreator = (messageText: string): AddMessageDispatchType => {
-    return {
-        type: ADD_MESSAGE,
-        messageText: messageText
-    }
-}
-
-export const changeNewMessageActionCreator = (newMessage: string): ChangeNewMessageTextDispatchType => {
-    return {
-        type: CHANGE_NEW_MESSAGE_TEXT,
-        newMessage: newMessage
-    }
-}
