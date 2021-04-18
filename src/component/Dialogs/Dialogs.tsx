@@ -1,14 +1,15 @@
-import React, {KeyboardEvent} from "react";
+import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
 import {Dialog} from "./Dialog";
 import {Message} from "./Message";
-import {RootStateType} from "../../Redux/state";
+import {ActionsTypes, addMessageActionCreator, changeNewMessageActionCreator, RootStateType} from "../../Redux/state";
 
 type DialogsPropsType = {
     state: RootStateType
     message: string
     addMessageCallBack: (message: string) => void
     changeNewMessageCallBack: (newMessage: string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 
@@ -20,7 +21,12 @@ export const Dialogs = (props: DialogsPropsType) => {
     //Добавление текста
     //let newMessageElement = React.createRef<HTMLTextAreaElement>();
     const addMessage = () => {
-        props.addMessageCallBack(props.message)
+        //props.addMessageCallBack(props.message)
+        props.dispatch(addMessageActionCreator(props.message))
+    }
+    const onChangeNewMessageCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        //props.changeNewMessageCallBack(e.currentTarget.value);
+        props.dispatch(changeNewMessageActionCreator(e.currentTarget.value));
     }
 
 
@@ -32,8 +38,11 @@ export const Dialogs = (props: DialogsPropsType) => {
             <div className={classes.messages}>
                 {messageElement}
             </div>
-            <textarea value={props.message}
-            onChange={(e) => props.changeNewMessageCallBack(e.currentTarget.value)}></textarea>
+            <textarea
+                value={props.message}
+                onChange={onChangeNewMessageCallback}
+                placeholder={"Enter your message"}
+            ></textarea>
             <button onClick={addMessage}>+</button>
         </div>
     )
