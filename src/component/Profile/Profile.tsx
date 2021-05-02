@@ -2,15 +2,11 @@ import React from "react";
 import classes from "./Profile.module.css";
 import MyPost from "./Posts/MyPost";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionsTypes, RootStateType} from "../../Redux/state";
+import {ActionsTypes, RootStateType, StoreType} from "../../Redux/state";
+import MyPostContainer from "./Posts/Post/MyPostContainer";
 
 type ProfilePropsType = {
-    state: RootStateType
-    addPostCallback: (postText: string) => void
-    changeNewTextCallBach: (newText: string) => void
-    message: string
-    dispatch: (action: ActionsTypes) => void
-
+    store: StoreType
 }
 
 const Profile = (props: ProfilePropsType) => {
@@ -19,11 +15,8 @@ const Profile = (props: ProfilePropsType) => {
     return (
         <div className={classes.content}>
             <ProfileInfo/>
-            <MyPost posts={props.state.profilePage.posts}
-                    addPostCallback={props.addPostCallback}
-                    message={props.message}
-                    changeNewTextCallBach={props.changeNewTextCallBach}
-                    dispatch={props.dispatch}
+            <MyPostContainer
+                store={props.store}
             />
         </div>
     )

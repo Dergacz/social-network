@@ -2,15 +2,15 @@ import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
 import {Dialog} from "./Dialog";
 import {Message} from "./Message";
-import { addMessageActionCreator, changeNewMessageActionCreator} from "../../Redux/dialogsReducer";
-import {ActionsTypes, RootStateType} from "../../Redux/state";
+import {RootStateType} from "../../Redux/state";
 
 type DialogsPropsType = {
     state: RootStateType
     message: string
-    addMessageCallBack: (message: string) => void
+    addMessageCallBack: () => void
     changeNewMessageCallBack: (newMessage: string) => void
-    dispatch: (action: ActionsTypes) => void
+
+
 }
 
 
@@ -22,14 +22,14 @@ export const Dialogs = (props: DialogsPropsType) => {
     //Добавление текста
     //let newMessageElement = React.createRef<HTMLTextAreaElement>();
     const addMessage = () => {
-        //props.addMessageCallBack(props.message)
-        props.dispatch(addMessageActionCreator(props.message))
+        props.addMessageCallBack()
+
     }
     const onChangeNewMessageCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        //props.changeNewMessageCallBack(e.currentTarget.value);
-        props.dispatch(changeNewMessageActionCreator(e.currentTarget.value));
-    }
+        let body = e.currentTarget.value
+        props.changeNewMessageCallBack(body);
 
+    }
 
     return (
         <div className={classes.dialogs}>

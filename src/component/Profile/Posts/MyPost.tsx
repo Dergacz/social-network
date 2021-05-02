@@ -1,15 +1,13 @@
 import React, {ChangeEvent} from "react";
-import { addPostActionCreator, newPostActionCreator} from "../../../Redux/profileReducer";
 import classes from "./MyPost.module.css";
 import Post from "./Post/Post";
-import {ActionsTypes, PostType} from "../../../Redux/state";
+import {RootStateType} from "../../../Redux/state";
 
 type MyPostPropsType = {
-    posts: Array<PostType>
+    state: RootStateType
     addPostCallback: (postText: string) => void
     changeNewTextCallBach: (newText: string) => void
     message: string
-    dispatch: (action: ActionsTypes) => void
 }
 
 
@@ -17,17 +15,17 @@ const MyPost = (props: MyPostPropsType) => {
 
 
 
-    let postElement = props.posts
+    let postElement = props.state.profilePage.posts
         .map(m => <Post key={m.id} message={m.message} likes={m.likes}/>)
 
     //Добавление нового поста
     const addPost = () => {
-        //props.addPostCallback(props.message);
-        props.dispatch(addPostActionCreator(props.message))
+        props.addPostCallback(props.message);
+
     }
     const newPostOnChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-       // props.changeNewTextCallBach(e.currentTarget.value);
-        props.dispatch(newPostActionCreator(e.currentTarget.value))
+       props.changeNewTextCallBach(e.currentTarget.value);
+
 
 
     }

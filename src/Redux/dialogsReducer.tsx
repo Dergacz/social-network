@@ -1,25 +1,41 @@
 import {
     ActionsTypes,
     AddMessageDispatchType,
-    ChangeNewMessageTextDispatchType,
+    ChangeNewMessageTextDispatchType, DialogsPageType,
     MessagesType
 } from "./state";
 
 const ADD_MESSAGE = "ADD-MESSAGE";
 const CHANGE_NEW_MESSAGE_TEXT = "CHANGE-NEW-MESSAGE-TEXT";
 
-export const dialogsReducer = (state: any, action: ActionsTypes) => {
+const initialState = {
+    dialogs: [
+        {id: 1, name: "Sania"},
+        {id: 2, name: "Pasha"},
+        {id: 3, name: "Vasia"},
+        {id: 4, name: "Petia"},
+        {id: 5, name: "Ashot"}
+    ],
+    messages: [
+        {id: 1, message: "Doroy"},
+        {id: 2, message: "Che kavo"},
+        {id: 3, message: "Kak sam?"}
+    ],
+    newDialogsMessage: ""
+}
+
+export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage: MessagesType = {
                 id: new Date().getTime(),
-                message: state.dialogsPage.newDialogsMessage,
+                message: state.newDialogsMessage,
             }
-            state.dialogsPage.messages.push(newMessage);
-            state.dialogsPage.newDialogsMessage = "";
+            state.messages.push(newMessage);
+            state.newDialogsMessage = "";
             return state;
         case CHANGE_NEW_MESSAGE_TEXT:
-            state.dialogsPage.newDialogsMessage = action.newMessage;
+            state.newDialogsMessage = action.newMessage;
             return state;
         default:
             return state;

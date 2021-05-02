@@ -3,12 +3,12 @@ import "./App.css";
 import Header from "./component/Header/Header";
 import NavBar from "./component/NavBar/NavBar";
 import Profile from "./component/Profile/Profile";
-import {Dialogs} from "./component/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./component/News/News";
 import {Music} from "./component/Music/Music";
 import {Settings} from "./component/Settings/Settings";
 import {StoreType} from "./Redux/state";
+import {DialogsContainer} from "./component/Dialogs/DialogsContainer";
 
 
 export type AppStateType = {
@@ -26,21 +26,13 @@ function App(props: AppStateType) {
                 <div className="app_wrapper_content">
                     <Route path="/profile"
                            render={() => <Profile
-                               state={state}
-                               addPostCallback={props.store.addPost.bind(props.store)}
-                               message={state.profilePage.newPostMessage}
-                               changeNewTextCallBach={props.store.changeNewText.bind(props.store)}
-                               dispatch={props.store.dispatch.bind(props.store)}
+                               store={props.store}
                            />}
 
                     />
                     <Route path="/dialogs"
-                           render={() => <Dialogs
-                               state={state}
-                               addMessageCallBack={props.store.addMessage.bind(props.store)}
-                               message={state.dialogsPage.newDialogsMessage}
-                               changeNewMessageCallBack={props.store.changeNewMessageText.bind(props.store)}
-                               dispatch = {props.store.dispatch.bind(props.store)}
+                           render={() => <DialogsContainer
+                               store={props.store}
                            />}
                     />
                     <Route path="/news" render={() => <News/>}/>

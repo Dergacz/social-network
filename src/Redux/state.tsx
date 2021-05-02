@@ -3,7 +3,6 @@ import {dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
 
 
-
 export type PostType = {
     id: number
     message: string
@@ -147,33 +146,6 @@ export const store: StoreType = {
 
         this._renderThree();
 
-        // if (action.type === ADD_POST){
-        //     const newPost: PostType = {
-        //         id: new Date().getTime(),
-        //         message: this._state.profilePage.newPostMessage,
-        //         likes: 0
-        //     }
-        //     this._state.profilePage.posts.push(newPost)
-        //     this._state.profilePage.newPostMessage = ""
-        //     this._renderThree()
-        // }
-        // else if (action.type === CHANGE_NEW_TEXT){
-        //     this._state.profilePage.newPostMessage = action.newText;
-        //     this._renderThree();
-        // }
-        // else if (action.type === ADD_MESSAGE){
-        //     const newMessage: MessagesType = {
-        //         id: new Date().getTime(),
-        //         message: this._state.dialogsPage.newDialogsMessage,
-        //     }
-        //     this._state.dialogsPage.messages.push(newMessage)
-        //     this._state.dialogsPage.newDialogsMessage = ""
-        //     this._renderThree()
-        // }
-        // else if (action.type === CHANGE_NEW_MESSAGE_TEXT){
-        //     this._state.dialogsPage.newDialogsMessage = action.newMessage;
-        //     this._renderThree();
-        // }
     }
 
 }

@@ -1,9 +1,10 @@
 import React from "react";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import {store} from "./Redux/state";
+
 import ReactDOM from "react-dom";
 import App from "./App";
+import {store} from "./Redux/state";
 
 
 const renderTree = () => {
@@ -16,6 +17,7 @@ const renderTree = () => {
 }
 
 store.subscribe(renderTree)
+
 renderTree()
 
 

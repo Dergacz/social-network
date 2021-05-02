@@ -1,14 +1,17 @@
-import {
-    ActionsTypes,
-    AddPostDispatchType,
-    ChangeNewTextDispatchType,
-    PostType, ProfilePageType, RootStateType
-} from "./state";
+import {ActionsTypes, AddPostDispatchType, ChangeNewTextDispatchType, PostType, ProfilePageType} from "./state";
 
 const ADD_POST = "ADD-POST";
 const CHANGE_NEW_TEXT = "CHANGE-NEW-TEXT";
 
-export const profileReducer = (state: ProfilePageType, action: ActionsTypes) => {
+const initialState = {
+    newPostMessage: "",
+    posts: [
+        {id: 1, message: "Hey, How are you?", likes: 15},
+        {id: 2, message: "It's my first post", likes: 20},
+    ]
+}
+
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
             const newPost: PostType = {
