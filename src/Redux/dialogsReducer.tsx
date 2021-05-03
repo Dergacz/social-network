@@ -1,7 +1,8 @@
 import {
     ActionsTypes,
     AddMessageDispatchType,
-    ChangeNewMessageTextDispatchType, DialogsPageType,
+    ChangeNewMessageTextDispatchType,
+    DialogsType,
     MessagesType
 } from "./state";
 
@@ -14,17 +15,19 @@ const initialState = {
         {id: 2, name: "Pasha"},
         {id: 3, name: "Vasia"},
         {id: 4, name: "Petia"},
-        {id: 5, name: "Ashot"}
-    ],
+        {id: 5, name: "Kate"}
+    ]  as DialogsType[],
     messages: [
         {id: 1, message: "Doroy"},
-        {id: 2, message: "Che kavo"},
+        {id: 2, message: "How are you?"},
         {id: 3, message: "Kak sam?"}
-    ],
+    ] as MessagesType[],
     newDialogsMessage: ""
 }
 
-export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
+export type DialogInitialStateType = typeof initialState;
+
+export const dialogsReducer = (state: DialogInitialStateType = initialState, action: ActionsTypes): DialogInitialStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage: MessagesType = {

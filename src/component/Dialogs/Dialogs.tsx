@@ -2,22 +2,19 @@ import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.css";
 import {Dialog} from "./Dialog";
 import {Message} from "./Message";
-import {RootStateType} from "../../Redux/state";
+import {DialogInitialStateType} from "../../Redux/dialogsReducer";
 
 type DialogsPropsType = {
-    state: RootStateType
-    message: string
+    dialogsPage: DialogInitialStateType
     addMessageCallBack: () => void
-    changeNewMessageCallBack: (newMessage: string) => void
-
-
+    changeNewMessageCallBack: (body: string) => void
 }
 
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    let dialogElement = props.state.dialogsPage.dialogs.map(d => <Dialog id={d.id} name={d.name}/>)
-    let messageElement = props.state.dialogsPage.messages.map(m => <Message message={m.message}/>)
+    let dialogElement = props.dialogsPage.dialogs.map(d => <Dialog id={d.id} name={d.name}/>)
+    let messageElement = props.dialogsPage.messages.map(m => <Message message={m.message}/>)
 
     //Добавление текста
     //let newMessageElement = React.createRef<HTMLTextAreaElement>();
@@ -30,7 +27,6 @@ export const Dialogs = (props: DialogsPropsType) => {
         props.changeNewMessageCallBack(body);
 
     }
-
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogs_item}>
@@ -40,7 +36,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                 {messageElement}
             </div>
             <textarea
-                value={props.message}
+                value={props.dialogsPage.newDialogsMessage}
                 onChange={onChangeNewMessageCallback}
                 placeholder={"Enter your message"}
             ></textarea>

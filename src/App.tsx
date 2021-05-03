@@ -7,16 +7,15 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./component/News/News";
 import {Music} from "./component/Music/Music";
 import {Settings} from "./component/Settings/Settings";
-import {StoreType} from "./Redux/state";
 import {DialogsContainer} from "./component/Dialogs/DialogsContainer";
+import {Store} from "redux";
 
 
 export type AppStateType = {
-    store: StoreType
+    store: Store
 }
 
 function App(props: AppStateType) {
-    const state = props.store.getState();
 
     return (
         <BrowserRouter>
@@ -25,15 +24,10 @@ function App(props: AppStateType) {
                 <NavBar/>
                 <div className="app_wrapper_content">
                     <Route path="/profile"
-                           render={() => <Profile
-                               store={props.store}
-                           />}
-
+                           render={() => <Profile/>}
                     />
                     <Route path="/dialogs"
-                           render={() => <DialogsContainer
-                               store={props.store}
-                           />}
+                           render={() => <DialogsContainer/>}
                     />
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>

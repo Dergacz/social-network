@@ -1,4 +1,4 @@
-import {ActionsTypes, AddPostDispatchType, ChangeNewTextDispatchType, PostType, ProfilePageType} from "./state";
+import {ActionsTypes, AddPostDispatchType, ChangeNewTextDispatchType, PostType} from "./state";
 
 const ADD_POST = "ADD-POST";
 const CHANGE_NEW_TEXT = "CHANGE-NEW-TEXT";
@@ -11,7 +11,9 @@ const initialState = {
     ]
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
+export type ProfileInitialType = typeof initialState;
+
+export const profileReducer = (state: ProfileInitialType = initialState, action: ActionsTypes): ProfileInitialType => {
     switch (action.type) {
         case ADD_POST:
             const newPost: PostType = {

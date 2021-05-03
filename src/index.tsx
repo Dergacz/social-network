@@ -1,16 +1,18 @@
 import React from "react";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-
 import ReactDOM from "react-dom";
 import App from "./App";
-import {store} from "./Redux/state";
+import {store} from "./Redux/reduxStore"
+import {Provider} from "react-redux";
 
 
 const renderTree = () => {
     ReactDOM.render(
         <React.StrictMode>
-            <App store={store}/>
+            <Provider store={store}>
+                <App store={store}/>
+            </Provider>
         </React.StrictMode>,
         document.getElementById("root")
     );

@@ -1,29 +1,42 @@
 import React from "react";
-import {StoreType} from "../../Redux/state";
-import {addMessageActionCreator, changeNewMessageActionCreator} from "../../Redux/dialogsReducer";
+import {
+    addMessageActionCreator,
+    changeNewMessageActionCreator,
+    DialogInitialStateType
+} from "../../Redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
+import {Dispatch, Store} from "redux";
+import {store} from "../../Redux/state";
+import {connect} from "react-redux";
+import {AppStateType} from "../../Redux/reduxStore";
 
-type DialogsPropsType = {
-    store: StoreType
+
+const state = store.getState();
+
+type mapStateToPropsType = {
+    dialogsPage: DialogInitialStateType
 }
 
-export const DialogsContainer = (props: DialogsPropsType) => {
-    const state = props.store.getState();
-
-    const addMessage = () => {
-        props.store.dispatch(addMessageActionCreator(state.dialogsPage.newDialogsMessage));
-    }
-
-    const onChangeNewMessageCallback = (body: string) => {
-        props.store.dispatch(changeNewMessageActionCreator(body));
-    }
-
-    return (
-        <Dialogs
-            state={state}
-            message={state.dialogsPage.newDialogsMessage}
-            addMessageCallBack={addMessage}
-            changeNewMessageCallBack={onChangeNewMessageCallback}/>
-
-    )
+type mapDispatchToPropsType = {
+    addMessageCallBack: () => void
+    changeNewMessageCallBack: (body: string) => void
 }
+
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+    return {
+        addMessageCallBack: () => {
+            dispatch(addMessageActionCreator(state.dialogsPage.newDialogsMessage))
+        },
+        changeNewMessageCallBack: (body: string) => {
+            dispatch(changeNewMessageActionCreator(body))
+        },
+    }
+}
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
