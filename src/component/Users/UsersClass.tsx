@@ -6,12 +6,10 @@ import usersPhoto from "../../assests/image/no_avatar.png"
 
 export class UsersC extends React.Component<UsersPropsType, UsersPropsType> {
 
-    constructor(props: UsersPropsType) {
-        super(props);
+    componentDidMount(): void {
         axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            props.setUsers(response.data.items);
+            this.props.setUsers(response.data.items);
         })
-
     }
 
     render() {
