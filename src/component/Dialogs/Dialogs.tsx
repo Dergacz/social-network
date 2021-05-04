@@ -13,8 +13,8 @@ type DialogsPropsType = {
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    let dialogElement = props.dialogsPage.dialogs.map(d => <Dialog id={d.id} name={d.name}/>)
-    let messageElement = props.dialogsPage.messages.map(m => <Message message={m.message}/>)
+    let dialogElement = props.dialogsPage.dialogs.map(d => <Dialog id={d.id} name={d.name} key={d.id}/>)
+    let messageElement = props.dialogsPage.messages.map(m => <Message message={m.message} key={m.id}/>)
 
     //Добавление текста
     //let newMessageElement = React.createRef<HTMLTextAreaElement>();

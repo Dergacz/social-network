@@ -9,6 +9,7 @@ import {Music} from "./component/Music/Music";
 import {Settings} from "./component/Settings/Settings";
 import {DialogsContainer} from "./component/Dialogs/DialogsContainer";
 import {Store} from "redux";
+import {UsersContainer} from "./component/Users/UsersContainer";
 
 
 export type AppStateType = {
@@ -28,6 +29,9 @@ function App(props: AppStateType) {
                     />
                     <Route path="/dialogs"
                            render={() => <DialogsContainer/>}
+                    />
+                    <Route path="/users"
+                           render={() => <UsersContainer/>}
                     />
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>

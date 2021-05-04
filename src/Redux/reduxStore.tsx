@@ -2,15 +2,17 @@ import {combineReducers, createStore, Store} from "redux";
 import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
+import {usersReducer} from "../component/Users/usersReducer";
 
-const reducers = combineReducers({
+export const Rootreducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
-    sidebar: sidebarReducer
+    sidebar: sidebarReducer,
+    usersPage: usersReducer
 });
 
-export const store: Store = createStore(reducers);
+export const store: Store = createStore(Rootreducer);
 
-export type AppStateType = ReturnType<typeof reducers>
+export type AppStateType = ReturnType<typeof Rootreducer>
 
 

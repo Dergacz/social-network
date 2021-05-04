@@ -29,7 +29,7 @@ export type DialogsPageType = {
     messages: Array<MessagesType>
     newDialogsMessage: string
 }
-type SideBarType = {}
+export type SideBarType = {}
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -58,7 +58,22 @@ export type ChangeNewMessageTextDispatchType = {
     newMessage: string
 }
 
-export type ActionsTypes = AddPostDispatchType | ChangeNewTextDispatchType | AddMessageDispatchType | ChangeNewMessageTextDispatchType
+export type FollowedType = {
+    type: "FOLLOWED",
+    userId: number
+}
+
+export type UnFollowedType = {
+    type: "UNFOLLOWED",
+    userId: number
+}
+
+export type SetUsersType = {
+    type: "SET_USERS",
+    users: any
+}
+
+export type ActionsTypes = AddPostDispatchType | ChangeNewTextDispatchType | AddMessageDispatchType | ChangeNewMessageTextDispatchType | FollowedType | UnFollowedType | SetUsersType
 
 export type StoreType = {
     _state: RootStateType

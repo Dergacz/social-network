@@ -16,7 +16,7 @@ const initialState = {
         {id: 3, name: "Vasia"},
         {id: 4, name: "Petia"},
         {id: 5, name: "Kate"}
-    ]  as DialogsType[],
+    ] as DialogsType[],
     messages: [
         {id: 1, message: "Doroy"},
         {id: 2, message: "How are you?"},
@@ -29,17 +29,25 @@ export type DialogInitialStateType = typeof initialState;
 
 export const dialogsReducer = (state: DialogInitialStateType = initialState, action: ActionsTypes): DialogInitialStateType => {
     switch (action.type) {
-        case ADD_MESSAGE:
+        case ADD_MESSAGE: {
             const newMessage: MessagesType = {
                 id: new Date().getTime(),
                 message: state.newDialogsMessage,
             }
-            state.messages.push(newMessage);
-            state.newDialogsMessage = "";
-            return state;
-        case CHANGE_NEW_MESSAGE_TEXT:
-            state.newDialogsMessage = action.newMessage;
-            return state;
+            const copyState = {
+                ...state,
+                newDialogsMessage: "",
+                messages: [...state.messages, newMessage]
+            };
+            return copyState;
+        }
+        case CHANGE_NEW_MESSAGE_TEXT: {
+            const copyState = {
+                ...state,
+                newDialogsMessage: action.newMessage
+            };
+            return copyState;
+        }
         default:
             return state;
     }
