@@ -1,27 +1,43 @@
 import React from "react";
-import styles from "./users.module.css"
+import styles from "./users.module.css";
+import usersPhoto from "../../assests/image/no_avatar.png";
 import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
-import usersPhoto from "../../assests/image/no_avatar.png"
 
 export const Users = (props: UsersPropsType) => {
 
-    const getUsers = () => {
-        if (props.usersPage.users.length === 0
-        ) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                props.setUsers(response.data.items);
-            })
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
-        }
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
-
 
     return (
         <div>
-            <button onClick={getUsers}>Get users</button>
+            <div>
+
+                {pages.map(p => {
+
+                  const onPageChanged = (page: number) => {
+                        props.setCurrentPage(page);
+                        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${props.pageSize}`)
+                            .then(response => {
+                                    props.setUsers(response.data.items);
+                                }
+                            );
+                    }
+
+                    return <span
+                        className={props.currentPage === p ? styles.selected_page : ""}
+                        onClick={() => {
+                            onPageChanged(p)
+                        }
+                        }>{p}</span>
+                })}
+            </div>
             {
-                props.usersPage.users.map(u => <div key={u.id}>
+                props.usersPage.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img src={u.photos.small !== null
@@ -59,23 +75,3 @@ export const Users = (props: UsersPropsType) => {
         </div>
     )
 }
-
-
-// [
-//     {
-//         id: 1,
-//         photoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPytdJm408MhFkOS0iBwFQdfFvMvSExabbKA8BdTVerLaMy9Fig71JZm0uJPI0ot24sNs&usqp=CAU",
-//         followed: false,
-//         name: "Kyle",
-//         status: "student",
-//         location: {city: "Colorado", country: "USA"},
-//     },
-//     {
-//         id: 2,
-//         photoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjq1u8oBhFuEqkoPQtH5LmvpaCd1od7fYq5A&usqp=CAU",
-//         followed: true,
-//         name: "Butters",
-//         status: "student",
-//         location: {city: "Colorado", country: "USA"},
-//     },
-// ]

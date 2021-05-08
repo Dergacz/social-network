@@ -1,6 +1,7 @@
 import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {sidebarReducer} from "./sidebarReducer";
+import {UserType} from "../component/Users/usersReducer";
 
 
 export type PostType = {
@@ -70,10 +71,21 @@ export type UnFollowedType = {
 
 export type SetUsersType = {
     type: "SET_USERS",
-    users: any
+    users: UserType[]
 }
 
-export type ActionsTypes = AddPostDispatchType | ChangeNewTextDispatchType | AddMessageDispatchType | ChangeNewMessageTextDispatchType | FollowedType | UnFollowedType | SetUsersType
+export type SetCurrentPageType = {
+    type: "SET_CURRENT_PAGE",
+    currentPage: number
+}
+
+export type SetTotalUserCount = {
+    type: "SET_TOTAL_USER_COUNT",
+    totalCount: number
+}
+
+
+export type ActionsTypes = AddPostDispatchType | ChangeNewTextDispatchType | AddMessageDispatchType | ChangeNewMessageTextDispatchType | FollowedType | UnFollowedType | SetUsersType | SetCurrentPageType | SetTotalUserCount
 
 export type StoreType = {
     _state: RootStateType
