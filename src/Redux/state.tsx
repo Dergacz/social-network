@@ -84,8 +84,13 @@ export type SetTotalUserCount = {
     totalCount: number
 }
 
+export type SetToGgleIsFetching = {
+    type: "SET_TOGGLE_IS_FETCHING",
+    isFetching: boolean
+}
 
-export type ActionsTypes = AddPostDispatchType | ChangeNewTextDispatchType | AddMessageDispatchType | ChangeNewMessageTextDispatchType | FollowedType | UnFollowedType | SetUsersType | SetCurrentPageType | SetTotalUserCount
+
+export type ActionsTypes = AddPostDispatchType | ChangeNewTextDispatchType | AddMessageDispatchType | ChangeNewMessageTextDispatchType | FollowedType | UnFollowedType | SetUsersType | SetCurrentPageType | SetTotalUserCount | SetToGgleIsFetching
 
 export type StoreType = {
     _state: RootStateType

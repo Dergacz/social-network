@@ -1,7 +1,7 @@
 import {
     ActionsTypes,
     FollowedType,
-    SetCurrentPageType,
+    SetCurrentPageType, SetToGgleIsFetching,
     SetTotalUserCount,
     SetUsersType,
     UnFollowedType
@@ -12,6 +12,7 @@ const UNFOLLOWED = "UNFOLLOWED";
 const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USER_COUNT = "SET_TOTAL_USER_COUNT";
+const SET_TOGGLE_IS_FETCHING = "SET_TOGGLE_IS_FETCHING"
 
 // export type UserType = {
 //     id: number
@@ -46,6 +47,7 @@ export type InitialStateType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 
 }
 
@@ -54,6 +56,7 @@ const initialState: InitialStateType = {
     pageSize: 5,
     totalUsersCount: 19,
     currentPage: 1,
+    isFetching: false
 }
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -129,6 +132,13 @@ export const setTotalUserCountAC = (totalCount: number): SetTotalUserCount => {
     return {
         type: SET_TOTAL_USER_COUNT,
         totalCount
+    }
+}
+
+export const setToggleIsFetchingAC = (isFetching: boolean): SetToGgleIsFetching => {
+    return {
+        type: SET_TOGGLE_IS_FETCHING,
+        isFetching
     }
 }
 

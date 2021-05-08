@@ -2,9 +2,12 @@ import React from "react";
 import styles from "./users.module.css";
 import usersPhoto from "../../assests/image/no_avatar.png";
 import {UsersPropsType} from "./UsersContainer";
-import axios from "axios";
 
-export const Users = (props: UsersPropsType) => {
+export type OnPageChangedType = {
+    onPageChanged: (page: number) => void
+}
+
+export const Users = (props: UsersPropsType & OnPageChangedType) => {
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
@@ -18,20 +21,11 @@ export const Users = (props: UsersPropsType) => {
             <div>
 
                 {pages.map(p => {
-
-                  const onPageChanged = (page: number) => {
-                        props.setCurrentPage(page);
-                        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${props.pageSize}`)
-                            .then(response => {
-                                    props.setUsers(response.data.items);
-                                }
-                            );
-                    }
-
                     return <span
+                        key={p}
                         className={props.currentPage === p ? styles.selected_page : ""}
                         onClick={() => {
-                            onPageChanged(p)
+                            props.onPageChanged(p)
                         }
                         }>{p}</span>
                 })}
