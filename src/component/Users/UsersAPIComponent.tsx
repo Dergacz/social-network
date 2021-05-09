@@ -2,14 +2,14 @@ import React from "react";
 import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
 import {Users} from "./Users";
-import tenor from "../../Images/0_DqHGYPBA-ANwsma2.gif"
+import {Loader} from "./Loader";
 
 export class UsersAPIComponent extends React.Component<UsersPropsType, UsersPropsType> {
 
     componentDidMount(): void {
         this.props.setToggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-            this.props.setToggleIsFetching(true);
+            this.props.setToggleIsFetching(false);
             this.props.setUsers(response.data.items);
             this.props.setTotalUserCount(response.data.items);
         })
@@ -20,7 +20,7 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, UsersProp
         this.props.setCurrentPage(page);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
             .then(response => {
-                    this.props.setToggleIsFetching(true);
+                    this.props.setToggleIsFetching(false);
                     this.props.setUsers(response.data.items);
                 }
             );
@@ -30,10 +30,7 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, UsersProp
 
         return (
             <>
-                <div>
-                    {this.props.isFetching ? <div><img src={tenor}/></div> : ""}
-                </div>
-
+                <Loader isFetching={this.props.isFetching}/>
                 <Users
                     onPageChanged={this.onPageChanged}
                     usersPage={this.props.usersPage}
